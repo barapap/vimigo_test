@@ -1,14 +1,14 @@
-class AttendanceRecord{
-  final String id;
+class AttendanceRecord {
+  final int id;
   final String name;
-  final String contact;
+  late final String contact;
   final DateTime time;
 
   AttendanceRecord({
     required this.id,
     required this.name,
     required this.contact,
-    required this.time
+    required this.time,
   });
 
   factory AttendanceRecord.fromJson(Map<String, dynamic> json) {
