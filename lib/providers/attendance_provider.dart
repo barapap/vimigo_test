@@ -46,7 +46,8 @@ class AttendanceProvider with ChangeNotifier {
     if (_useTimeAgoFormat) {
       return timeAgo(time);
     } else {
-      return DateFormat('dd MMM yyyy, h:mm a').format(time);
+      final truncatedTime = time.subtract(Duration(milliseconds: time.millisecond));
+      return DateFormat('dd MMM yyyy, h:mm a').format(truncatedTime);
     }
   }
 

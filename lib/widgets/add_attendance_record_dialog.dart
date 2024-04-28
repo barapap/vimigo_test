@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../providers/attendance_provider.dart';
 
@@ -49,6 +50,7 @@ class AddAttendanceRecordDialogState extends State<AddAttendanceRecordDialog> {
               onSaved: (value) {
                 _contact = value!;
               },
+              keyboardType: TextInputType.number,
             ),
           ],
         ),
