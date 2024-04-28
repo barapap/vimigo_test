@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../providers/attendance_provider.dart';
 
@@ -69,6 +68,9 @@ class AddAttendanceRecordDialogState extends State<AddAttendanceRecordDialog> {
               widget.provider.addAttendanceRecord(_name, _contact);
               widget.onRecordAdded();
               Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Record added successfully')),
+              );
             }
           },
           child: const Text('Add'),

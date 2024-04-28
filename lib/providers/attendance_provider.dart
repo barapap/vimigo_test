@@ -37,13 +37,16 @@ class AttendanceProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleTimeFormat(bool value) {
-    _useTimeAgoFormat = value;
+  void toggleTimeFormat(bool shouldFetchRecords) {
+    _useTimeAgoFormat = !useTimeAgoFormat;
+    if (shouldFetchRecords) {
+      fetchAttendanceRecords();
+    }
     notifyListeners();
   }
 
   String formatTime(DateTime time) {
-    if (_useTimeAgoFormat) {
+    if (_useTimeAgoFormat == true) {
       return timeAgo(time);
     } else {
       final truncatedTime = time.subtract(Duration(milliseconds: time.millisecond));
@@ -53,8 +56,12 @@ class AttendanceProvider with ChangeNotifier {
 
   void addAttendanceRecord(String name, String contact) {
     final newRecord = AttendanceRecord(
-        name: name, contact: contact, time: DateTime.now());
-    _attendanceRecords.add(newRecord);
+      name: name,
+      contact: contact,
+      time: useTimeAgoFormat ? DateTime.now() : DateTime.now().toUtc(),
+    );
+
+    _attendanceRecords.insert(0, newRecord);
     _attendanceRecords.sort((a, b) => b.time.compareTo(a.time));
     notifyListeners();
   }
@@ -128,7 +135,10 @@ class AttendanceProvider with ChangeNotifier {
         final checkIn = DateTime.parse(checkInString);
 
         final newRecord = AttendanceRecord(
-            name: name, contact: phone, time: checkIn);
+          name: name,
+          contact: phone,
+          time: useTimeAgoFormat ? DateTime.now().subtract(checkIn.difference(DateTime.now()).abs()) : checkIn.toUtc(),
+        );
         _attendanceRecords.add(newRecord);
       }
 
