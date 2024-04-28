@@ -42,7 +42,8 @@ class AttendanceRecordListState extends State<AttendanceRecordList> {
   }
 
   void _onScroll() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent &&
+    if (_scrollController.position.maxScrollExtent > 0 &&
+        _scrollController.offset >= _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('You have reached the end of the list')),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../providers/attendance_provider.dart';
-import 'attendance_record_list.dart';
 
 class TimeFormatToggle extends StatelessWidget {
   final AttendanceProvider aprovider;
@@ -15,11 +14,11 @@ class TimeFormatToggle extends StatelessWidget {
       icon: Icon(useTimeAgoFormat ? Icons.access_time : Icons.calendar_today),
       onPressed: () {
         aprovider.toggleTimeFormat(true);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => AttendanceRecordList(provider: aprovider),
-          ),
-        );
+        //Navigator.of(context).push(
+          //MaterialPageRoute(
+            //builder: (_) => AttendanceRecordList(provider: aprovider),
+          //),
+        //);
       },
     );
   }
