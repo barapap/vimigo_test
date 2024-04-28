@@ -4,8 +4,9 @@ import '../providers/attendance_provider.dart';
 
 class AddAttendanceRecordDialog extends StatefulWidget {
   final AttendanceProvider provider;
+  final Function onRecordAdded;
 
-  const AddAttendanceRecordDialog({super.key, required this.provider});
+  const AddAttendanceRecordDialog({super.key, required this.provider, required this.onRecordAdded});
 
   @override
   AddAttendanceRecordDialogState createState() => AddAttendanceRecordDialogState();
@@ -64,6 +65,7 @@ class AddAttendanceRecordDialogState extends State<AddAttendanceRecordDialog> {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
               widget.provider.addAttendanceRecord(_name, _contact);
+              widget.onRecordAdded();
               Navigator.pop(context);
             }
           },

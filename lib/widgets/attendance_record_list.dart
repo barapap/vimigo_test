@@ -16,6 +16,19 @@ class AttendanceRecordList extends StatefulWidget {
 
 class AttendanceRecordListState extends State<AttendanceRecordList> {
   String _searchQuery = '';
+  bool _isLoading = true; // Add isLoading state variable
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.provider.fetchAttendanceRecords().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,27 +57,35 @@ class AttendanceRecordListState extends State<AttendanceRecordList> {
               onRefresh: () async {
                 await widget.provider.fetchAttendanceRecords();
               },
-              child: ListView.builder(
-                itemCount: widget.provider.filteredAttendanceRecords.length,
-                itemBuilder: (context, index) {
-                  final record = widget.provider.filteredAttendanceRecords[index];
-                  return ListTile(
-                    title: Text(record.name),
-                    subtitle: Text('Contact: ${record.contact}'),
-                    trailing: Text(
-                      widget.provider.formatTime(record.time),
+              child: Column(
+                children: [
+                  if (_isLoading) // Display CircularProgressIndicator if isLoading is true
+                    const CircularProgressIndicator(),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: widget.provider.filteredAttendanceRecords.length,
+                      itemBuilder: (context, index) {
+                        final record = widget.provider.filteredAttendanceRecords[index];
+                        return ListTile(
+                          title: Text(record.name),
+                          subtitle: Text('Contact: ${record.contact}'),
+                          trailing: Text(
+                            widget.provider.formatTime(record.time),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    AttendanceRecordDetails(record: record),
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              AttendanceRecordDetails(record: record),
-                        ),
-                      );
-                    },
-                  );
-                },
+                  ),
+                ],
               ),
             ),
           ),
@@ -74,8 +95,12 @@ class AttendanceRecordListState extends State<AttendanceRecordList> {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) =>
-                AddAttendanceRecordDialog(provider: widget.provider),
+            builder: (context) => AddAttendanceRecordDialog(
+              provider: widget.provider,
+              onRecordAdded: () {
+                setState(() {}); // Rebuild the AttendanceRecordList widget
+              },
+            ),
           );
         },
         child: const Icon(Icons.add),
