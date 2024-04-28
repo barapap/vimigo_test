@@ -1,29 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_share/flutter_share.dart';
-import 'package:provider/provider.dart';
-
-import 'package:vimigo_test/providers/attendance_provider.dart';
+import 'package:share/share.dart';
+import '../models/attendance_record.dart';
 
 class ShareButton extends StatelessWidget {
-  final String text;
+  final AttendanceRecord record;
 
-  const ShareButton({super.key, required this.text});
+  const ShareButton({super.key, required this.record});
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.share),
+    return FloatingActionButton(
       onPressed: () {
-        final attendee = Provider
-            .of<AttendanceProvider>(context)
-            .selectedAttendee;
-        if (attendee != null) {
-          FlutterShare.share(
-            title: 'Attendee Details',
-            text: 'Name: ${attendee.name}\nContact: ${attendee.contact}',
-          );
+        Share.share(
+          'Name: ${record.name}\nContact: ${record.contact}\nTime: ${record.time}',
+          subject: 'Attendee Details',
+          sharePositionOrigin: const Rect.fromLTWH(0, 0, 0, 0),
+        );
+        if (kDebugMode) {
+          print('Attendee details shared successfully');
         }
-      }
+      },
+      child: const Icon(Icons.share),
     );
   }
 }
