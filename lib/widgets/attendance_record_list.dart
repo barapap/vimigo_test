@@ -25,6 +25,7 @@ class AttendanceRecordListState extends State<AttendanceRecordList> {
   void initState() {
     super.initState();
     _init();
+    widget.provider.fetchAttendanceRecords();
     _scrollController.addListener(_onScroll);
   }
 
@@ -60,8 +61,12 @@ class AttendanceRecordListState extends State<AttendanceRecordList> {
           Consumer<AttendanceProvider>(
             builder: (context, provider, child) {
               return TimeFormatToggle(
-                useTimeAgoFormat: provider.useTimeAgoFormat,
-                aprovider: provider,
+              useTimeAgoFormat: provider.useTimeAgoFormat,
+              aprovider: provider,
+              onToggle: (value) {
+                provider.toggleTimeFormat(
+                    false); // Update the state of the provider
+              }
               );
             },
           ),

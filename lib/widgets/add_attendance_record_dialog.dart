@@ -61,7 +61,7 @@ class AddAttendanceRecordDialogState extends State<AddAttendanceRecordDialog> {
           },
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();

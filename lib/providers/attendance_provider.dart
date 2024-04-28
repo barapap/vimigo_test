@@ -38,15 +38,15 @@ class AttendanceProvider with ChangeNotifier {
   }
 
   void toggleTimeFormat(bool shouldFetchRecords) {
-    _useTimeAgoFormat = !useTimeAgoFormat;
+    _useTimeAgoFormat = !_useTimeAgoFormat; // Toggle the flag
     if (shouldFetchRecords) {
       fetchAttendanceRecords();
     }
-    notifyListeners();
+    notifyListeners(); // Notify listeners of the change
   }
 
   String formatTime(DateTime time) {
-    if (_useTimeAgoFormat == true) {
+    if (_useTimeAgoFormat) {
       return timeAgo(time);
     } else {
       final truncatedTime = time.subtract(Duration(milliseconds: time.millisecond));
