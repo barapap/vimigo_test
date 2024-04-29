@@ -61,12 +61,11 @@ class AttendanceRecordListState extends State<AttendanceRecordList> {
           Consumer<AttendanceProvider>(
             builder: (context, provider, child) {
               return TimeFormatToggle(
-              useTimeAgoFormat: provider.useTimeAgoFormat,
-              aprovider: provider,
-              onToggle: (value) {
-                provider.toggleTimeFormat(
-                    false); // Update the state of the provider
-              }
+                  useTimeAgoFormat: provider.useTimeAgoFormat,
+                  aprovider: provider,
+                  onToggle: (value) {
+                    provider.toggleTimeFormat(false); // Update the state of the provider
+                  }
               );
             },
           ),
