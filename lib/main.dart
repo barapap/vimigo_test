@@ -10,7 +10,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => AttendanceProvider()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }

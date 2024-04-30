@@ -20,7 +20,7 @@ class AddAttendanceRecordDialogState extends State<AddAttendanceRecordDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add Attendance Record'),
+      title: const Text('New Attendee'),
       content: Form(
         key: _formKey,
         child: Column(
