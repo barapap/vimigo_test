@@ -1,9 +1,6 @@
 # vimigo_test
 
-This application is to assess how well are the technical skills of a potential frontend developer. 
-My submissions will determine which skill level you are evaluated at.
-
-These are the requirements:
+These are the requirements to be fulfill:
 
 As a frontend developer, you are expected to develop a Flutter application with a list of
 attendance records with the reference of the data set provided below.
@@ -24,16 +21,3 @@ attendance records with the reference of the data set provided below.
     use the app when a new user first opens up the app.
 12. Users are able to share the contact information from the attendance records to other
     applications that are installed.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
