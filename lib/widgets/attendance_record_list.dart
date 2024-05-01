@@ -64,7 +64,7 @@ class AttendanceRecordListState extends State<AttendanceRecordList> {
                   useTimeAgoFormat: provider.useTimeAgoFormat,
                   aprovider: provider,
                   onToggle: (value) {
-                    provider.toggleTimeFormat(false); // Update the state of the provider
+                    provider.toggleTimeFormat(value); // Update the state of the provider
                   }
               );
             },

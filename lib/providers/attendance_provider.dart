@@ -6,6 +6,60 @@ import 'package:vimigo_test/utils/times_ago.dart';
 
 class AttendanceProvider with ChangeNotifier {
   final List<AttendanceRecord> _attendanceRecords = [];
+
+  final defaultRecords = [
+    AttendanceRecord(
+      name: "Chan Saw Lin",
+      contact: "0152131113",
+      time: DateTime.parse("2020-06-30 16:10:05"),
+    ),
+    AttendanceRecord(
+      name: "Lee Saw Loy",
+      contact: "0161231346",
+      time: DateTime.parse("2020-07-11 15:39:59"),
+    ),
+    AttendanceRecord(
+      name: "Khaw Tong Lin",
+      contact: "0158398109",
+      time: DateTime.parse("2020-08-19 11:10:18"),
+    ),
+    AttendanceRecord(
+      name: "Lim Kok Lin",
+      contact: "0168279101",
+      time: DateTime.parse("2020-08-19 11:11:35"),
+    ),
+    AttendanceRecord(
+      name: "Low Jun Wei",
+      contact: "0112731912",
+      time: DateTime.parse("2020-08-15 13:00:05"),
+    ),
+    AttendanceRecord(
+      name: "Yong Weng Kai",
+      contact: "0172332743",
+      time: DateTime.parse("2020-07-31 18:10:11"),
+    ),
+    AttendanceRecord(
+      name: "Jayden Lee",
+      contact: "0191236439",
+      time: DateTime.parse("2020-08-22 08:10:38"),
+    ),
+    AttendanceRecord(
+      name: "Kong Kah Yan",
+      contact: "0111931233",
+      time: DateTime.parse("2020-07-11 12:00:00"),
+    ),
+    AttendanceRecord(
+      name: "Jasmine Lau",
+      contact: "0162879190",
+      time: DateTime.parse("2020-08-01 12:10:05"),
+    ),
+    AttendanceRecord(
+      name: "Chan Saw Lin",
+      contact: "016783239",
+      time: DateTime.parse("2020-08-23 11:59:05"),
+    ),
+  ];
+
   bool _useTimeAgoFormat = true;
   bool _isLoading = false;
   String _searchQuery = '';
@@ -74,74 +128,11 @@ class AttendanceProvider with ChangeNotifier {
     await Future.delayed(const Duration(seconds: 1));
 
     if (_attendanceRecords.isEmpty) {
-      // Add default values from JSON dataset
-      final jsonData = [
-        {
-          "user": "Chan Saw Lin",
-          "phone": "0152131113",
-          "check-in": "2020-06-30 16:10:05"
-        },
-        {
-          "user": "Lee Saw Loy",
-          "phone": "0161231346",
-          "check-in": "2020-07-11 15:39:59"
-        },
-        {
-          "user": "Khaw Tong Lin",
-          "phone": "0158398109",
-          "check-in": "2020-08-19 11:10:18"
-        },
-        {
-          "user": "Lim Kok Lin",
-          "phone": "0168279101",
-          "check-in": "2020-08-19 11:11:35"
-        },
-        {
-          "user": "Low Jun Wei",
-          "phone": "0112731912",
-          "check-in": "2020-08-15 13:00:05"
-        },
-        {
-          "user": "Yong Weng Kai",
-          "phone": "0172332743",
-          "check-in": "2020-07-31 18:10:11"
-        },
-        {
-          "user": "Jayden Lee",
-          "phone": "0191236439",
-          "check-in": "2020-08-22 08:10:38"
-        },
-        {
-          "user": "Kong Kah Yan",
-          "phone": "0111931233",
-          "check-in": "2020-07-11 12:00:00"
-        },
-        {
-          "user": "Jasmine Lau",
-          "phone": "0162879190",
-          "check-in": "2020-08-01 12:10:05"
-        },
-        {
-          "user": "Chan Saw Lin",
-          "phone": "016783239",
-          "check-in": "2020-08-23 11:59:05"
-        }
-      ];
-
-      for (final json in jsonData) {
-        final name = json['user']?? '';
-        final phone = json['phone']?? '';
-        final checkInString = json['check-in']?? '';
-        final checkIn = DateTime.parse(checkInString);
-
-        final newRecord = AttendanceRecord(
-          name: name,
-          contact: phone,
-          time: useTimeAgoFormat ? DateTime.now().subtract(checkIn.difference(DateTime.now()).abs()) : checkIn.toUtc(),
-        );
-        _attendanceRecords.add(newRecord);
-      }
-
+      _attendanceRecords.addAll(defaultRecords.map((record) => AttendanceRecord(
+        name: record.name,
+        contact: record.contact,
+        time: record.time,
+      )).toList());
       _attendanceRecords.sort((a, b) => b.time.compareTo(a.time));
     }
 
